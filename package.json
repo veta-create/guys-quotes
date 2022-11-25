@@ -1,0 +1,24 @@
+{
+  "name": "guys-quotes",
+  "version": "1.0.0",
+  "description": "The app posts guy quotes in stories",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veta-create/guys-quotes.git"
+  },
+  "author": "veta-create <vita.eksuzyan@bk.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/veta-create/guys-quotes/issues"
+  },
+  "homepage": "https://github.com/veta-create/guys-quotes#readme",
+  "dependencies": {
+    "image-data-uri": "^2.0.1",
+    "sharp": "^0.31.2",
+    "text-to-image": "^5.2.0"
+  }
+}
