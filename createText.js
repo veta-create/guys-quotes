@@ -5,7 +5,7 @@ async function createText(text) {
   const dataUri = await textToImage.generate(text, {
     maxWidth: 680,
     fontSize: 60,
-    lineHeight: 60,
+    lineHeight: 75,
     bgColor: "#00000061",
     textColor: "#fff",
   });
