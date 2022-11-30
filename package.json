@@ -4,7 +4,9 @@
   "description": "The app posts guy quotes in stories",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wolf": "node index.js --type=wolf",
+    "statham": "node index.js --type=statham"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,9 @@
   },
   "homepage": "https://github.com/veta-create/guys-quotes#readme",
   "dependencies": {
+    "form-data": "^4.0.0",
     "image-data-uri": "^2.0.1",
+    "node-fetch": "^2.6.7",
     "sharp": "^0.31.2",
     "text-to-image": "^5.2.0"
   }
