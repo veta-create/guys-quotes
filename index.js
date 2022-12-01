@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { execFileSync } = require("child_process");
-
+const createStorie = require("./createStorie");
 const quotes = require("./quotes.json");
 
 const getRandomElementFromArray = (arr = []) =>
@@ -12,32 +12,60 @@ const getRandomBackground = (imgPath) => {
 };
 
 const getRandomQuote = (quotes, type = "statham") => {
-  return getRandomElementFromArray(quotes[type]);
+  const quotesFile = JSON.parse(fs.readFileSync("./quotes.json"));
+  let randomQuote = getRandomElementFromArray(quotes[type]);
+  if (type === "wolf") {
+    while (quotesFile.usedQuotesWolf.includes(randomQuote)) {
+      randomQuote = getRandomElementFromArray(quotes[type]);
+    }
+  }
+  if (type === "statham") {
+    while (quotesFile.usedQuotesStatham.includes(randomQuote)) {
+      randomQuote = getRandomElementFromArray(quotes[type]);
+    }
+  }
+
+  return randomQuote;
 };
 
 function createWolf() {
   execFileSync(
     "node",
-    ["./createText.js", `--text=${getRandomQuote(quotes, "wolf")}`],
+    [
+      "./createText.js",
+      `--text=${getRandomQuote(quotes, "wolf")}`,
+      "--type=wolf",
+    ],
     { stdio: "inherit" }
   );
   execFileSync(
     "node",
-    ["./createImage.js", `--image=${getRandomBackground("./wolfImages")}`, '--type=wolf'],
+    [
+      "./createImage.js",
+      `--image=${getRandomBackground("./wolfImages")}`,
+      "--type=wolf",
+    ],
     { stdio: "inherit" }
   );
-
 }
 
 function createStatham() {
   execFileSync(
     "node",
-    ["./createText.js", `--text=${getRandomQuote(quotes, "statham")}`],
+    [
+      "./createText.js",
+      `--text=${getRandomQuote(quotes, "statham")}`,
+      "--type=statham",
+    ],
     { stdio: "inherit" }
   );
   execFileSync(
     "node",
-    ["./createImage.js", `--image=${getRandomBackground("./stathamImages")}`, '--type=statham'],
+    [
+      "./createImage.js",
+      `--image=${getRandomBackground("./stathamImages")}`,
+      "--type=statham",
+    ],
     { stdio: "inherit" }
   );
 }
@@ -50,8 +78,12 @@ if (!typeArg) {
 
 const [_, typeValue] = typeArg.split("=");
 
-if(typeValue === 'wolf') {
-  createWolf()
-} else if(typeValue === 'statham') {
-  createStatham()
-}
+(async () => {
+  if (typeValue === "wolf") {
+    createWolf();
+    createStorie("./result-wolf.png");
+  } else if (typeValue === "statham") {
+    createStatham();
+    createStorie("./result-statham.png");
+  }
+})();
